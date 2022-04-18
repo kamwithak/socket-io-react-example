@@ -1,6 +1,7 @@
 import "./App.css";
 import io from "socket.io-client";
 import { useEffect, useState } from "react";
+import { Button, TextField, Typography } from "@mui/material";
 
 const socket = io.connect("http://localhost:3001");
 
@@ -27,23 +28,23 @@ function App() {
       setMessageReceived(data.message);
     });
   }, [socket]);
+
   return (
     <div className="App">
-      <input
-        placeholder="Room Number..."
-        onChange={(event) => {
+      <Typography variant="h2" component="h2">
+        socket.io messaging system
+      </Typography>;
+      <TextField id="outlined-basic" label="Room Number" variant="outlined" onChange={(event) => {
           setRoom(event.target.value);
-        }}
-      />
-      <button onClick={joinRoom}> Join Room</button>
-      <input
-        placeholder="Message..."
-        onChange={(event) => {
+        }}/>
+      <Button onClick={joinRoom} variant="text">Join Room</Button>
+      <TextField id="outlined-basic" label="Message" variant="outlined" onChange={(event) => {
           setMessage(event.target.value);
-        }}
-      />
-      <button onClick={sendMessage}> Send Message</button>
-      <h1> Message:</h1>
+        }}/>
+      <Button onClick={sendMessage} variant="text">Send Message</Button>
+      <Typography variant="h5" component="h5">
+        Message Board:
+      </Typography>;
       {messageReceived}
     </div>
   );
